@@ -1,0 +1,46 @@
+{
+  "collective": {
+    "name": "Monkey Business",
+    "tagline": ""
+  },
+  "members": [
+    {
+      "id": "cmun-selecta",
+      "name": "CmunSelecta",
+      "bio": "",
+      "image": "",
+      "image_source": "mixcloud",
+      "socials": {
+        "soundcloud": "https://soundcloud.com/cmun-selecta",
+        "mixcloud": "https://www.mixcloud.com/CmunSelecta/",
+        "instagram": "https://www.instagram.com/cmunselecta",
+        "website": "https://cmunselecta.com",
+        "youtube": "https://youtube.com"
+      }
+    },
+    {
+      "id": "dj-two",
+      "name": "DJ Two",
+      "bio": "",
+      "image": "",
+      "image_source": "mixcloud",
+      "socials": {
+        "soundcloud": "",
+        "mixcloud": "",
+        "instagram": "",
+        "website": ""
+      }
+    },
+    {
+      "id": "dj-three",
+      "name": "DJ Three",
+      "bio": "",
+      "image": "",
+      "image_source": "manual",
+      "socials": {
+        "instagram": "",
+        "website": ""
+      }
+    }
+  ]
+}

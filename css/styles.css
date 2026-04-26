@@ -1,0 +1,180 @@
+/*
+ * styles.css — layout and component styles.
+ *
+ * No raw colour, font, or spacing values here.
+ * Every visual token comes from config/theme.css via CSS custom properties.
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base-size);
+  min-height: 100vh;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.site-header {
+  text-align: center;
+  padding: var(--page-padding-y) var(--page-padding-x) calc(var(--page-padding-y) * 0.6);
+}
+
+.collective-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-heading-size);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.collective-tagline {
+  margin-top: 0.6rem;
+  color: var(--color-text-secondary);
+  font-size: var(--text-tagline-size);
+}
+
+/* ─── Main grid ───────────────────────────────────────────── */
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--page-padding-x) var(--page-padding-y);
+}
+
+.dj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-col), 1fr));
+  gap: var(--grid-gap);
+}
+
+/* ─── DJ card ─────────────────────────────────────────────── */
+
+.dj-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.dj-card:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+}
+
+/* Avatar */
+
+.dj-avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: var(--avatar-radius);
+  object-fit: cover;
+  background-color: var(--color-border);  /* visible while image loads */
+  flex-shrink: 0;
+}
+
+/* Name */
+
+.dj-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-name-size);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+/* Bio */
+
+.dj-bio-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.dj-bio {
+  font-size: var(--text-bio-size);
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--bio-clamp-lines);
+  overflow: hidden;
+}
+
+.dj-bio-wrapper.expanded .dj-bio {
+  display: block;
+  overflow: visible;
+}
+
+.dj-bio-toggle {
+  background: none;
+  border: none;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  font-size: var(--text-bio-size);
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  transition: color 0.18s ease;
+}
+
+.dj-bio-toggle:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Social links */
+
+.dj-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--icon-gap);
+  justify-content: center;
+  /* max-width set per-card by JS — forces wrapping at the right column count
+     so justify-content: center can balance the shorter last row */
+}
+
+.social-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Fixed dimensions so JS can calculate exact container max-width for balanced wrapping */
+  width: var(--icon-size);
+  height: var(--icon-size);
+  transition: color 0.18s ease;
+  line-height: 1;
+}
+
+.social-link:hover {
+  color: var(--color-accent);
+}
+
+.social-link i {
+  font-size: var(--icon-size);
+}
+
+/* ─── Loading / error states ──────────────────────────────── */
+
+.grid-message {
+  color: var(--color-text-secondary);
+  font-size: var(--text-bio-size);
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.grid-message.error {
+  color: #e05555;
+}

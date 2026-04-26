@@ -1,0 +1,63 @@
+/*
+ * theme.css — ALL design tokens live here.
+ *
+ * This is the only file that needs to change for a full rebrand.
+ * No colour, font, or spacing values appear anywhere else in the codebase.
+ *
+ * Current values are placeholders. Replace once a style guide exists.
+ *
+ * To add a Google Font, uncomment and edit the @import line, then update
+ * --font-heading and --font-body.
+ */
+
+/* @import url('https://fonts.googleapis.com/css2?family=YourFont&display=swap'); */
+
+:root {
+  /* --- Colour --- */
+  --color-bg:              #0d0d0d;
+  --color-surface:         #181818;
+  --color-surface-hover:   #212121;
+  --color-border:          #2c2c2c;
+  --color-border-hover:    #ffd000;   /* placeholder accent — swap with brand */
+
+  --color-text-primary:    #f2f2f2;
+  --color-text-secondary:  #888888;
+
+  --color-accent:          #ffd000;   /* placeholder — swap with brand colour */
+  --color-accent-hover:    #ffe840;
+
+  /* --- Typography --- */
+  --font-heading:   system-ui, sans-serif;   /* swap with brand typeface */
+  --font-body:      system-ui, sans-serif;
+
+  --text-heading-size:   2.75rem;
+  --text-tagline-size:   1rem;
+  --text-name-size:      1.85rem;
+  --text-bio-size:       0.875rem;
+  --text-base-size:      16px;
+
+  /* --- Layout --- */
+  --max-width:       1280px;
+  --page-padding-x:  2rem;
+  --page-padding-y:  3rem;
+  --section-gap:     3rem;
+
+  /* --- Grid --- */
+  --grid-gap:        1.5rem;
+  --grid-min-col:    260px;   /* card minimum width before wrapping */
+
+  /* --- Cards --- */
+  --card-padding:    1.75rem;
+  --card-radius:     10px;
+
+  /* --- Avatars --- */
+  --avatar-size:     185px;
+  --avatar-radius:   50%;
+
+  /* --- Social icons --- */
+  --icon-size:       2rem;
+  --icon-gap:        1.25rem;
+
+  /* --- Bio truncation --- */
+  --bio-clamp-lines: 3;
+}
