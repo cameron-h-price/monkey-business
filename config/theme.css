@@ -33,7 +33,6 @@
   --text-heading-size:   2.75rem;
   --text-tagline-size:   1rem;
   --text-name-size:      1.85rem;
-  --text-bio-size:       0.875rem;
   --text-base-size:      16px;
 
   /* --- Layout --- */
@@ -58,6 +57,4 @@
   --icon-size:       2rem;
   --icon-gap:        1.25rem;
 
-  /* --- Bio truncation --- */
-  --bio-clamp-lines: 3;
 }
