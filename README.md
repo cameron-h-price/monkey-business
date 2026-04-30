@@ -2,15 +2,15 @@
 
 A static directory site for the Monkey Business DJ collective. One card per member, auto-fetches profile images from Mixcloud or SoundCloud.
 
-## Running locally
+Live at **https://cameron-h-price.github.io/monkey-business/**
 
-Requires a local HTTP server (the page fetches `data/djs.json` via `fetch()`, which is blocked on `file://`).
+## Deploying
 
 ```
-python -m http.server 8765
+git push
 ```
 
-Then open `http://localhost:8765`.
+GitHub Pages auto-deploys on every push to master. No build step.
 
 ---
 
@@ -125,8 +125,3 @@ The `collective` block at the top of `djs.json` controls the page header:
 }
 ```
 
----
-
-## Deploying
-
-Push to the GitHub Pages branch. The site is purely static — no build step.
