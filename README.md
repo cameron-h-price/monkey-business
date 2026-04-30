@@ -1,6 +1,6 @@
 # Monkey Business
 
-A static directory site for the Monkey Business DJ collective. One card per member, auto-fetches profile images from Mixcloud or SoundCloud.
+A static directory site for the Monkey Business DJ collective. One card per member, displayed alphabetically.
 
 Live at **https://cameron-h-price.github.io/monkey-business/**
 
