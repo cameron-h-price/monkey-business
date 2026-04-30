@@ -123,7 +123,14 @@ async function init() {
   document.title = data.collective.name;
 
   // Filter out members with no name (incomplete placeholder entries)
-  const members = (data.members ?? []).filter(m => m.name?.trim());
+  // Silly Goose is pinned first; remaining members sorted alphabetically
+  const members = (data.members ?? [])
+    .filter(m => m.name?.trim())
+    .sort((a, b) => {
+      if (a.id === 'SillyGoose') return -1;
+      if (b.id === 'SillyGoose') return  1;
+      return a.name.localeCompare(b.name);
+    });
 
   if (members.length === 0) {
     showMessage(grid, 'No members found. Add entries to data/djs.json.');
