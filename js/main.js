@@ -31,7 +31,7 @@ const PLACEHOLDER_AVATAR = `data:image/svg+xml,${encodeURIComponent(
 
 /*
  * Fetch profile data from Mixcloud's public API (no auth required, CORS-enabled).
- * Returns image and bio if available.
+ * Returns image if available.
  */
 async function fetchFromMixcloud(mixcloudUrl) {
   try {
@@ -41,7 +41,6 @@ async function fetchFromMixcloud(mixcloudUrl) {
     const data = await res.json();
     return {
       image: data.pictures?.large ?? data.pictures?.medium ?? null,
-      bio:   data.biog ?? null,
     };
   } catch {
     return {};
@@ -67,30 +66,28 @@ async function fetchFromSoundCloud(soundcloudUrl) {
 }
 
 /*
- * Resolve the final image URL and bio for a member.
+ * Resolve the final image URL for a member.
  *
  * Priority order (first truthy value wins):
- *   1. Explicit image / bio fields in djs.json
+ *   1. Explicit image field in djs.json
  *   2. Auto-fetch based on image_source:
- *      - "mixcloud"    → Mixcloud API (image + bio)
- *      - "soundcloud"  → SoundCloud oEmbed (image only)
+ *      - "mixcloud"    → Mixcloud API
+ *      - "soundcloud"  → SoundCloud oEmbed
  *      - "manual"      → skip all auto-fetch
- *      - omitted/"auto"→ try Mixcloud, then SoundCloud for image if still missing
- *   3. Placeholder avatar / empty bio
+ *      - omitted/"auto"→ try Mixcloud, then SoundCloud
+ *   3. Placeholder avatar
  *
  * For local images, set image to a relative path e.g. "assets/images/djname.jpg"
  */
 async function resolveMediaForMember(member) {
   const overrideImage = member.image?.trim() || null;
-  const overrideBio   = member.bio?.trim()   || null;
 
-  if (overrideImage && overrideBio) {
-    return { image: overrideImage, bio: overrideBio };
+  if (overrideImage) {
+    return { image: overrideImage };
   }
 
-  const source  = member.image_source ?? 'auto';
-  let image     = overrideImage;
-  let bio       = overrideBio;
+  const source = member.image_source ?? 'auto';
+  let image    = null;
 
   if (source !== 'manual') {
     const tryMixcloud   = source === 'mixcloud'   || source === 'auto';
@@ -99,20 +96,15 @@ async function resolveMediaForMember(member) {
     if (tryMixcloud && member.socials?.mixcloud) {
       const mc = await fetchFromMixcloud(member.socials.mixcloud);
       image ??= mc.image ?? null;
-      bio   ??= mc.bio   ?? null;
     }
 
-    // SoundCloud as image fallback — only fetched if image still missing
     if (trySoundCloud && !image && member.socials?.soundcloud) {
       const sc = await fetchFromSoundCloud(member.socials.soundcloud);
       image ??= sc.image ?? null;
     }
   }
 
-  return {
-    image: image ?? PLACEHOLDER_AVATAR,
-    bio:   bio   ?? '',
-  };
+  return { image: image ?? PLACEHOLDER_AVATAR };
 }
 
 function buildCard(member, media) {
@@ -132,33 +124,6 @@ function buildCard(member, media) {
   nameEl.className   = 'dj-name';
   nameEl.textContent = member.name;
   card.appendChild(nameEl);
-
-  // Bio with expand/collapse toggle
-  if (media.bio) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'dj-bio-wrapper';
-
-    const bioEl = document.createElement('p');
-    bioEl.className   = 'dj-bio';
-    bioEl.textContent = media.bio;
-    wrapper.appendChild(bioEl);
-
-    const toggle = document.createElement('button');
-    toggle.className   = 'dj-bio-toggle';
-    toggle.textContent = 'More';
-    toggle.addEventListener('click', () => {
-      const expanded = wrapper.classList.toggle('expanded');
-      toggle.textContent = expanded ? 'Less' : 'More';
-    });
-    wrapper.appendChild(toggle);
-
-    card.appendChild(wrapper);
-
-    // Hide toggle if bio fits within the clamp (no overflow)
-    requestAnimationFrame(() => {
-      if (bioEl.scrollHeight <= bioEl.clientHeight) toggle.hidden = true;
-    });
-  }
 
   // Social links
   const activeSocials = Object.entries(member.socials ?? {})

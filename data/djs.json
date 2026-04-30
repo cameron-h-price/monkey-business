@@ -7,34 +7,29 @@
     {
       "id": "cmun-selecta",
       "name": "CmunSelecta",
-      "bio": "",
-      "image": "",
-      "image_source": "mixcloud",
+      "image": "https://cmunselecta.com/assets/photo.jpg",
+      "image_source": "manual",
       "socials": {
-        "soundcloud": "https://soundcloud.com/cmun-selecta",
-        "mixcloud": "https://www.mixcloud.com/CmunSelecta/",
-        "instagram": "https://www.instagram.com/cmunselecta",
         "website": "https://cmunselecta.com",
-        "youtube": "https://youtube.com"
+        "instagram": "https://www.instagram.com/cmunselecta",
+        "mixcloud": "https://www.mixcloud.com/CmunSelecta/"
       }
     },
     {
-      "id": "dj-two",
-      "name": "DJ Two",
-      "bio": "",
+      "id": "SillyGoose",
+      "name": "Silly Goose",
       "image": "",
       "image_source": "mixcloud",
       "socials": {
-        "soundcloud": "",
-        "mixcloud": "",
-        "instagram": "",
-        "website": ""
+        "website": "https://linktr.ee/antoine_sillygoose",
+        "instagram": "https://www.instagram.com/antoine_sillygoose/",
+        "twitch": "https://www.twitch.tv/antoine_sillygoose",
+        "kick": "https://kick.com/antoine-sillygoose"
       }
     },
     {
       "id": "dj-three",
       "name": "DJ Three",
-      "bio": "",
       "image": "",
       "image_source": "manual",
       "socials": {
