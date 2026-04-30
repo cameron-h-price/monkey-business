@@ -29,85 +29,11 @@ const PLACEHOLDER_AVATAR = `data:image/svg+xml,${encodeURIComponent(
   </svg>`
 )}`;
 
-/*
- * Fetch profile data from Mixcloud's public API (no auth required, CORS-enabled).
- * Returns image if available.
- */
-async function fetchFromMixcloud(mixcloudUrl) {
-  try {
-    const path = new URL(mixcloudUrl).pathname.replace(/^\/|\/$/g, '');
-    const res = await fetch(`https://api.mixcloud.com/${path}/`);
-    if (!res.ok) return {};
-    const data = await res.json();
-    return {
-      image: data.pictures?.large ?? data.pictures?.medium ?? null,
-    };
-  } catch {
-    return {};
-  }
+function resolveImage(member) {
+  return member.image?.trim() || PLACEHOLDER_AVATAR;
 }
 
-/*
- * Fetch profile image from SoundCloud via their oEmbed endpoint.
- * Returns image only — SoundCloud oEmbed does not provide a bio.
- */
-async function fetchFromSoundCloud(soundcloudUrl) {
-  try {
-    const endpoint = `https://soundcloud.com/oembed?url=${encodeURIComponent(soundcloudUrl)}&format=json`;
-    const res = await fetch(endpoint);
-    if (!res.ok) return {};
-    const data = await res.json();
-    return {
-      image: data.thumbnail_url ?? null,
-    };
-  } catch {
-    return {};
-  }
-}
-
-/*
- * Resolve the final image URL for a member.
- *
- * Priority order (first truthy value wins):
- *   1. Explicit image field in djs.json
- *   2. Auto-fetch based on image_source:
- *      - "mixcloud"    → Mixcloud API
- *      - "soundcloud"  → SoundCloud oEmbed
- *      - "manual"      → skip all auto-fetch
- *      - omitted/"auto"→ try Mixcloud, then SoundCloud
- *   3. Placeholder avatar
- *
- * For local images, set image to a relative path e.g. "assets/images/djname.jpg"
- */
-async function resolveMediaForMember(member) {
-  const overrideImage = member.image?.trim() || null;
-
-  if (overrideImage) {
-    return { image: overrideImage };
-  }
-
-  const source = member.image_source ?? 'auto';
-  let image    = null;
-
-  if (source !== 'manual') {
-    const tryMixcloud   = source === 'mixcloud'   || source === 'auto';
-    const trySoundCloud = source === 'soundcloud' || source === 'auto';
-
-    if (tryMixcloud && member.socials?.mixcloud) {
-      const mc = await fetchFromMixcloud(member.socials.mixcloud);
-      image ??= mc.image ?? null;
-    }
-
-    if (trySoundCloud && !image && member.socials?.soundcloud) {
-      const sc = await fetchFromSoundCloud(member.socials.soundcloud);
-      image ??= sc.image ?? null;
-    }
-  }
-
-  return { image: image ?? PLACEHOLDER_AVATAR };
-}
-
-function buildCard(member, media) {
+function buildCard(member) {
   const card = document.createElement('article');
   card.className = 'dj-card';
 
@@ -115,7 +41,7 @@ function buildCard(member, media) {
   const img = document.createElement('img');
   img.className = 'dj-avatar';
   img.alt       = member.name;
-  img.src       = media.image;
+  img.src       = resolveImage(member);
   img.onerror   = () => { img.src = PLACEHOLDER_AVATAR; };
   card.appendChild(img);
 
@@ -204,11 +130,8 @@ async function init() {
     return;
   }
 
-  // Resolve media for all members in parallel, preserving order
-  const mediaList = await Promise.all(members.map(resolveMediaForMember));
-
-  for (let i = 0; i < members.length; i++) {
-    grid.appendChild(buildCard(members[i], mediaList[i]));
+  for (const member of members) {
+    grid.appendChild(buildCard(member));
   }
 }
 

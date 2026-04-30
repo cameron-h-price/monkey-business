@@ -8,7 +8,6 @@
       "id": "cmun-selecta",
       "name": "CmunSelecta",
       "image": "https://cmunselecta.com/assets/photo.jpg",
-      "image_source": "manual",
       "socials": {
         "website": "https://cmunselecta.com",
         "instagram": "https://www.instagram.com/cmunselecta",
@@ -18,8 +17,6 @@
     {
       "id": "SillyGoose",
       "name": "Silly Goose",
-      "image": "",
-      "image_source": "mixcloud",
       "socials": {
         "website": "https://linktr.ee/antoine_sillygoose",
         "instagram": "https://www.instagram.com/antoine_sillygoose/",
@@ -30,12 +27,7 @@
     {
       "id": "dj-three",
       "name": "DJ Three",
-      "image": "",
-      "image_source": "manual",
-      "socials": {
-        "instagram": "",
-        "website": ""
-      }
+      "socials": {}
     }
   ]
 }

@@ -22,30 +22,17 @@ Edit `data/djs.json`. Add an entry to the `members` array:
 {
   "id": "their-name",
   "name": "Their Name",
-  "image": "",
-  "image_source": "mixcloud",
+  "image": "assets/images/their-name.jpg",
   "socials": {
     "mixcloud": "https://www.mixcloud.com/theirhandle/",
-    "instagram": "https://www.instagram.com/theirhandle/",
-    "soundcloud": "https://soundcloud.com/theirhandle"
+    "instagram": "https://www.instagram.com/theirhandle/"
   }
 }
 ```
 
-### Image options
+### Image
 
-| `image_source` | What it does |
-|---|---|
-| `"mixcloud"` | Fetches profile image from their Mixcloud page |
-| `"soundcloud"` | Fetches profile image from their SoundCloud page |
-| `"auto"` | Tries Mixcloud first, falls back to SoundCloud |
-| `"manual"` | Skips auto-fetch — uses whatever is in `image` |
-
-To use a **specific image URL**, set `image` to the URL and `image_source` to `"manual"`.
-
-To use a **local photo**, drop the file in `assets/images/` and set `image` to `"assets/images/filename.jpg"` with `image_source` set to `"manual"`.
-
-If no image is found, a placeholder silhouette is shown.
+Drop the photo in `assets/images/` and set `image` to `"assets/images/filename.jpg"`. If `image` is omitted, a placeholder silhouette is shown.
 
 ### Supported social platforms
 
